@@ -66,7 +66,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * @see #AnnotatedBeanDefinitionReader(BeanDefinitionRegistry, Environment)
 	 * @see #setEnvironment(Environment)
 	 */
-	public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry) {
+	public AnnotatedBeanDefinitionReader(BeanDefinitionRegistry registry) { // TODO: 2020/5/5 lizj2 008 bdr的构造方法
 		this(registry, getOrCreateEnvironment(registry));
 	}
 
@@ -84,7 +84,7 @@ public class AnnotatedBeanDefinitionReader {
 		Assert.notNull(environment, "Environment must not be null");
 		this.registry = registry;
 		this.conditionEvaluator = new ConditionEvaluator(registry, environment, null);
-		AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);
+		AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry); // TODO: 2020/5/5 lizj2 009 委托Utils
 	}
 
 
@@ -212,7 +212,7 @@ public class AnnotatedBeanDefinitionReader {
 	 */
 	<T> void doRegisterBean(Class<T> annotatedClass, @Nullable Supplier<T> instanceSupplier, @Nullable String name,
 			@Nullable Class<? extends Annotation>[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
-
+		// TODO: 2020/5/5 lizj2 019 转成bd
 		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(annotatedClass);
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
 			return;

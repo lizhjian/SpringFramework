@@ -62,8 +62,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
-		this.reader = new AnnotatedBeanDefinitionReader(this);
-		this.scanner = new ClassPathBeanDefinitionScanner(this);
+		this.reader = new AnnotatedBeanDefinitionReader(this);     // TODO: 2020/5/5 lizj2 006 是一个bd读取器(只能读取加了注解的类转成beanDedinition)
+		// TODO: 2020/5/5 lizj2 018 能够扫描类 并且转换成bd
+		this.scanner = new ClassPathBeanDefinitionScanner(this);   // this 代表大的环境
 	}
 
 	/**

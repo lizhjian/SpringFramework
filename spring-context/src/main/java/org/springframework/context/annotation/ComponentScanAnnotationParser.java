@@ -129,6 +129,7 @@ class ComponentScanAnnotationParser {
 				return declaringClass.equals(className);
 			}
 		});
+		// TODO: 2020/5/5 lizj2 048 真正 扫描包
 		return scanner.doScan(StringUtils.toStringArray(basePackages));
 	}
 

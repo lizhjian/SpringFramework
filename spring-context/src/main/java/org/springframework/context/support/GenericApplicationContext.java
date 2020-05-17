@@ -105,7 +105,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 	 * Create a new GenericApplicationContext.
 	 * @see #registerBeanDefinition
 	 * @see #refresh
-	 */
+	 */ // TODO: 2020/5/5 lizhijian 001 实例化一个工厂 beanFactory
 	public GenericApplicationContext() {
 		this.beanFactory = new DefaultListableBeanFactory();
 	}
@@ -119,7 +119,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 	public GenericApplicationContext(DefaultListableBeanFactory beanFactory) {
 		Assert.notNull(beanFactory, "BeanFactory must not be null");
 		this.beanFactory = beanFactory;
-	}
+	} 
 
 	/**
 	 * Create a new GenericApplicationContext with the given parent.

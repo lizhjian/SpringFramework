@@ -131,7 +131,7 @@ public class AnnotationConfigUtils {
 	 * @param registry the registry to operate on
 	 */
 	public static void registerAnnotationConfigProcessors(BeanDefinitionRegistry registry) {
-		registerAnnotationConfigProcessors(registry, null);
+		registerAnnotationConfigProcessors(registry, null);// TODO: 2020/5/5 lizj2 010 
 	}
 
 	/**
@@ -144,22 +144,26 @@ public class AnnotationConfigUtils {
 	 */
 	public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 			BeanDefinitionRegistry registry, @Nullable Object source) {
-
+		// TODO: 2020/5/5 lizj2 011 添加类的对象
 		DefaultListableBeanFactory beanFactory = unwrapDefaultListableBeanFactory(registry);
 		if (beanFactory != null) {
 			if (!(beanFactory.getDependencyComparator() instanceof AnnotationAwareOrderComparator)) {
+				// TODO: 2020/5/5 lizj2 012 AnnotationAwareOrderComparator 主要能解析@Order注解和@Priority
 				beanFactory.setDependencyComparator(AnnotationAwareOrderComparator.INSTANCE);
 			}
 			if (!(beanFactory.getAutowireCandidateResolver() instanceof ContextAnnotationAutowireCandidateResolver)) {
+				// TODO: 2020/5/5 lizj2 013 ContextAnnotationAutowireCandidateResolver 提供处理延迟加载的功能
 				beanFactory.setAutowireCandidateResolver(new ContextAnnotationAutowireCandidateResolver());
 			}
 		}
-
+		// TODO: 2020/5/5 lizj2 014 holder就是map 和list的组合
 		Set<BeanDefinitionHolder> beanDefs = new LinkedHashSet<>(8);
-
+        // TODO: 2020/5/5 lizj2 015 判断工厂中beanName没有这个字符串(现在是没有)
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
+			// TODO: 2020/5/5 lizj2 016 普通类变成bd(第二种变成bd的方法)
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
+			// TODO: 2020/5/5 lizj2 017 往bdm中注册ConfigurationClassPostProcessor
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 

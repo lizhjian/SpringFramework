@@ -37,7 +37,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
-public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
+public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement { // TODO: 2020/5/5 lizj2 007 用来描述bean
 
 	/**
 	 * Scope identifier for the standard singleton scope: "singleton".

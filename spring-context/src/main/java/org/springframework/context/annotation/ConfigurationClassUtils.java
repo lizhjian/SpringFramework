@@ -85,6 +85,7 @@ abstract class ConfigurationClassUtils {
 		}
 
 		AnnotationMetadata metadata;
+		// TODO: 2020/5/5 lizj2 042 判断bd是否加了注解 
 		if (beanDef instanceof AnnotatedBeanDefinition &&
 				className.equals(((AnnotatedBeanDefinition) beanDef).getMetadata().getClassName())) {
 			// Can reuse the pre-parsed metadata from the given BeanDefinition...
@@ -108,10 +109,11 @@ abstract class ConfigurationClassUtils {
 				return false;
 			}
 		}
-
+        // TODO: 2020/5/5 lizj2 043 判断当前bd代表的类加没加@Configuration注解
 		if (isFullConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
+		// TODO: 2020/5/5 lizj2 043.1 如果不存在Configuration注解,spring认为是一个部分注解类
 		else if (isLiteConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}

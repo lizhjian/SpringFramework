@@ -866,6 +866,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			this.hasDestructionAwareBeanPostProcessors = true;
 		}
 		// Add to end of list
+		// TODO: 2020/5/5 lizj2 028 将后置处理器添加的list中beanPostProcessor(能够插手bean的实例化)
 		this.beanPostProcessors.add(beanPostProcessor);
 	}
 
