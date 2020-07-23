@@ -13,10 +13,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Configuration
 public class MyConfClass {
 
-	@Bean
-	public UserService userService(){
-		return new UserService();
-	}
+//	@Bean
+//	public UserService userService(){
+//		return new UserService();
+//	}
 
 
 	public static void main(String[] args) {
@@ -32,8 +32,9 @@ public class MyConfClass {
 //			System.out.println(beanName);
 //		}
  		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		User user = (User) context.getBean("User");
+		User user = (User) context.getBean("user4");
 		System.out.println(user.getAge());
+		System.out.println(user.getName());
 
 	}
 }

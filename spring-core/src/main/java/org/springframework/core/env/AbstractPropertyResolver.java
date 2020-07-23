@@ -202,7 +202,7 @@ public abstract class AbstractPropertyResolver implements ConfigurablePropertyRe
 		}
 		return doResolvePlaceholders(text, this.nonStrictHelper);
 	}
-
+	// ~~~定义分隔符
 	@Override
 	public String resolveRequiredPlaceholders(String text) throws IllegalArgumentException {
 		if (this.strictHelper == null) {

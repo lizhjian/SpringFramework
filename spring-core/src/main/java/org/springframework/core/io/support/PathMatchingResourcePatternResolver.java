@@ -220,6 +220,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 	 * @param resourceLoader the ResourceLoader to load root directories and
 	 * actual resources with
 	 */
+	// ~~~resourceLoader = org.springframework.context.support.ClassPathXmlApplicationContext@61a52fbd
 	public PathMatchingResourcePatternResolver(ResourceLoader resourceLoader) {
 		Assert.notNull(resourceLoader, "ResourceLoader must not be null");
 		this.resourceLoader = resourceLoader;

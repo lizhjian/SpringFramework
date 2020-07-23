@@ -17,6 +17,6 @@ public class MyBeanFactoryProcessor implements BeanFactoryPostProcessor {
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		AnnotatedBeanDefinition annotatedBeanDefinition = (AnnotatedBeanDefinition) beanFactory.getBeanDefinition("userService");
 		annotatedBeanDefinition.setScope("prototype");
-
+		System.out.println("BeanFactoryPostProcessor...............");
 	}
 }

@@ -530,14 +530,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
-				// TODO: 2020/5/5 lizj2 030 目前没有任何实现
+				// TODO: 2020/5/5 lizj2 030 目前没有任何实现  在这一过程bean都已加载但没有被实例化
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// TODO: 2020/5/5 lizj2 031
+				// TODO: 2020/5/5 lizj2 031 通过显示顺序方式调用手动注册的BeanFactory后置处理器 先实例化spring框架涉及到的后处理器，再调动
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// TODO: 2020/7/15 注册拦截bean创建的bean处理器-实例化
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.

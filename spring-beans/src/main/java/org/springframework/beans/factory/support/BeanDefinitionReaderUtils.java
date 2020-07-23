@@ -146,7 +146,7 @@ public class BeanDefinitionReaderUtils {
 			throws BeanDefinitionStoreException {
 
 		// Register bean definition under primary name.
-		String beanName = definitionHolder.getBeanName();
+		String beanName = definitionHolder.getBeanName();//beanName = "user3"
 		// TODO: 2020/5/5 lizj2 054 注册bean
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 

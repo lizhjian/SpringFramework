@@ -94,8 +94,8 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {
 		this.readerContext = readerContext;
 		logger.debug("Loading bean definitions");
-		Element root = doc.getDocumentElement();
-		doRegisterBeanDefinitions(root);
+		Element root = doc.getDocumentElement();//获取rootElement
+		doRegisterBeanDefinitions(root);//do。。真正进行注册
 	}
 
 	/**
@@ -126,10 +126,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
-		BeanDefinitionParserDelegate parent = this.delegate;
+		BeanDefinitionParserDelegate parent = this.delegate;//专用来解析的类
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
-		if (this.delegate.isDefaultNamespace(root)) {
+		if (this.delegate.isDefaultNamespace(root)) {//判断root的命名空间是不是默认的
 			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 			if (StringUtils.hasText(profileSpec)) {
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
@@ -171,11 +171,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				Node node = nl.item(i);
 				if (node instanceof Element) {
 					Element ele = (Element) node;
-					if (delegate.isDefaultNamespace(ele)) {
+					if (delegate.isDefaultNamespace(ele)) {  // 默认命名空间
 						parseDefaultElement(ele, delegate);
 					}
 					else {
-						delegate.parseCustomElement(ele);
+						delegate.parseCustomElement(ele);    // 自定义命名空降
 					}
 				}
 			}
@@ -303,7 +303,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 */
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
-		if (bdHolder != null) {
+		if (bdHolder != null) {//~~~包含不少信息bdHolder 比如beanName  alias 以及bean本身的信息
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
 				// Register the final decorated instance.
