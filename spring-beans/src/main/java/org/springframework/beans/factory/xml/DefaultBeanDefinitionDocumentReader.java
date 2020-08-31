@@ -130,7 +130,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		if (this.delegate.isDefaultNamespace(root)) {//判断root的命名空间是不是默认的
-			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
+			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);//这块说的是根节点 <beans ... profile="dev" /> 中的 profile 是否是当前环境需要的
 			if (StringUtils.hasText(profileSpec)) {
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
 						profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
@@ -172,10 +172,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {  // 默认命名空间
-						parseDefaultElement(ele, delegate);
+						parseDefaultElement(ele, delegate);  // 解析 default namespace 下面的几个元素
 					}
 					else {
-						delegate.parseCustomElement(ele);    // 自定义命名空降
+						delegate.parseCustomElement(ele);    // 自定义命名空间 解析其他 namespace 的元素
 					}
 				}
 			}
@@ -306,7 +306,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		if (bdHolder != null) {//~~~包含不少信息bdHolder 比如beanName  alias 以及bean本身的信息
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
-				// Register the final decorated instance.
+				// Register the final decorated instance. 注册bean
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			}
 			catch (BeanDefinitionStoreException ex) {

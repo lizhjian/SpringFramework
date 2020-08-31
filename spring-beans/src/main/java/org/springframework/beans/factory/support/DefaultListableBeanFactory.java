@@ -848,7 +848,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				// Still in startup registration phase
 				this.beanDefinitionMap.put(beanName, beanDefinition);
 				this.beanDefinitionNames.add(beanName);
-				this.manualSingletonNames.remove(beanName);
+				this.manualSingletonNames.remove(beanName);// "environment"、"systemProperties" 等 bean
 			}
 			this.frozenBeanDefinitionNames = null;
 		}

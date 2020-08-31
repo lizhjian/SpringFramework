@@ -12,12 +12,23 @@
 		<!--<property name="age" value="28"/>-->
 	<!--</bean>-->
 	<import resource="spring-mvc.xml"/>
-	<bean id="user3" name="user4" class="User" init-method="initMethod">
+	<bean class="service.UserServiceImpl">
+
+	</bean>
+	<bean id="user1" name="user1" class="User" init-method="initMethod" scope="singleton">
 		<property name="name" value="${aa}"/>
 		<property name="age" value="30"/>
 	</bean>
+	<!--<bean id="user2" name="user2" class="User" init-method="initMethod" >-->
+		<!--<property name="name" value="${aa}"/>-->
+		<!--<property name="age" value="28"/>-->
+	<!--</bean>-->
 	
 	<context:property-placeholder location="classpath:db.properties"/>
 	
+
+	<bean id="personSportImpl1" class="PersonSportImpl1">
+
+	</bean>
 
 </beans>

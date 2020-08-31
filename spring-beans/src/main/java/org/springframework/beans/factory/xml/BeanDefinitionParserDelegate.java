@@ -436,7 +436,7 @@ public class BeanDefinitionParserDelegate {
         // ~~~将xml进行格式化放入到beanDefinition中
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
-			if (!StringUtils.hasText(beanName)) {  //如果beanName为空 spring自动生成吧beanName
+			if (!StringUtils.hasText(beanName)) {  //如果beanName为空 spring自动生成beanName
 				try {
 					if (containingBean != null) {
 						beanName = BeanDefinitionReaderUtils.generateBeanName(
@@ -512,11 +512,11 @@ public class BeanDefinitionParserDelegate {
 		}
 
 		try {
-			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
+			AbstractBeanDefinition bd = createBeanDefinition(className, parent);// 创建 BeanDefinition，然后设置类信息
 
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd); // 解析标签set到bd(GenericBeanDefinition)
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
-
+			// 解析 <meta />
 			parseMetaElements(ele, bd);
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());

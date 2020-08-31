@@ -8,7 +8,7 @@ import java.util.List;
  * </pre>
  */
 //模拟第一个类
-public class User implements UserService{
+public class User {
 	private String age;
 
 	private String name;
