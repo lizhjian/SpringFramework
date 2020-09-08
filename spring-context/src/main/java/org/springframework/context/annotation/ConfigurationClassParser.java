@@ -592,7 +592,7 @@ class ConfigurationClassParser {
 		return group;
 	}
 
-	// TODO: 2020/5/14 lizhijian 不知道啥意思???
+	//  不知道啥意思???
 	private void processImports(ConfigurationClass configClass, SourceClass currentSourceClass,
 			Collection<SourceClass> importCandidates, boolean checkForCircularImports) {
 

@@ -2,33 +2,59 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!--<bean id="test" class="TestInitlizationBean" init-method="initMehtod">-->
 	<!--</bean>-->
 	<!--<bean id="user" name="user2" class="User" init-method="initMethod">-->
-		<!--<property name="name" value="${a}"/>-->
+		<!--<property name="name" value="${aa}"/>-->
 		<!--<property name="age" value="28"/>-->
 	<!--</bean>-->
-	<import resource="spring-mvc.xml"/>
-	<bean class="service.UserServiceImpl">
+	<!--<import resource="spring-mvc.xml"/>-->
+	<!--<bean class="service.UserServiceImpl">-->
+
+	<!--</bean>-->
+	<bean id="user1" name="user1" class="User"  scope="singleton">
+		<property name="name" value="11"/>
+		<property name="age" value="30"/>
+		<property name="person" ref="person1"/>
+		<!--<lookup-method name="getPerson" bean="person1"/>-->
 
 	</bean>
-	<bean id="user1" name="user1" class="User" init-method="initMethod" scope="singleton">
-		<property name="name" value="${aa}"/>
-		<property name="age" value="30"/>
+
+	<bean id="person1" name="person" class="Person" scope="singleton">
+        <property name="height" value="100"/>
+		<!--<property name="user" ref="user1"/>-->
 	</bean>
+	<!--<bean id="user2" name="user2" class="User" scope="singleton">-->
+		<!--<property name="name" value="11"/>-->
+		<!--<property name="age" value="30"/>-->
+	<!--</bean>-->
 	<!--<bean id="user2" name="user2" class="User" init-method="initMethod" >-->
 		<!--<property name="name" value="${aa}"/>-->
 		<!--<property name="age" value="28"/>-->
 	<!--</bean>-->
 	
-	<context:property-placeholder location="classpath:db.properties"/>
+	<!--<context:property-placeholder location="classpath:db.properties"/>-->
 	
 
-	<bean id="personSportImpl1" class="PersonSportImpl1">
+	<!--<bean id="personSportImpl1" class="PersonSportImpl1">-->
 
-	</bean>
+	<!--</bean>-->
+
+	<!--<bean id="aspect" class="CustomAspect"/>-->
+
+	<!--<aop:config proxy-target-class="true">-->
+		<!--&lt;!&ndash; 引入切面 &ndash;&gt;-->
+		<!--<aop:aspect id="aspect" ref="aspect">-->
+			<!--&lt;!&ndash; 定义切点 &ndash;&gt;-->
+			<!--<aop:pointcut id="get" expression="execution(* User.getAge(..))"/>-->
+			<!--&lt;!&ndash; 定义通知 &ndash;&gt;-->
+			<!--<aop:before method="before" pointcut-ref="get"/>-->
+			<!--&lt;!&ndash;<aop:after method="after" pointcut-ref="say"/>&ndash;&gt;-->
+		<!--</aop:aspect>-->
+	<!--</aop:config>-->
 
 </beans>

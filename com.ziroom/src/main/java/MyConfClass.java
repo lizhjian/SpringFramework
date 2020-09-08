@@ -36,11 +36,15 @@ public class MyConfClass {
 //			System.out.println(beanName);
 //		}
  		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-		//User user = (User) context.getBean("user1");
-		Sport sport = (Sport) context.getBean(PersonSportImpl1.class);
+		User user = (User) context.getBean("user1");
+		//context.addBeanFactoryPostProcessor(new MyBeanFactoryProcessor());
+
+		System.out.println(user.getAge());
+		System.out.println(user.getPerson().getHeight());
+//		Sport sport = (Sport) context.getBean(PersonSportImpl1.class);
 
 //		User user2 = (User) context.getBean("user1");
-		System.out.println(sport);
+//		System.out.println(sport);
 //		System.out.println(user2);
 //		System.out.println(user.getAge());
 //		System.out.println(user.getName());
@@ -54,8 +58,8 @@ public class MyConfClass {
 ////XmlBeanDefinitionReader执行载入BeanDefinition的方法，最后会完成Bean的载入和注册。完成后Bean就成功的放置到IOC容器当中，以后我们就可以从中取得Bean来使用
 //		reader.loadBeanDefinitions(resource);
 
-		UserService userService = context.getBean(UserService.class);
-		userService.login();
+//		UserService userService = context.getBean(UserService.class);
+//		userService.login();
 
 	}
 }

@@ -515,49 +515,55 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
+		// 加锁 保证当前refresh结束下一个才开始
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
-			// TODO: 2020/5/5 lizj2 020 准备工作包括设置启动时间，是否激活标志位 初始化属性源 配置
+			//  020 准备工作包括设置启动时间，是否激活标志位 初始化属性源 配置
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// TODO: 2020/5/5 lizj2 022 得到一个beanFactory
+			//  022 得到一个beanFactory(将xml文件设置到bd里面)      40%
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
-			// TODO: 2020/5/5 lizj2 023 因为要对beanFactory进行设置
+			//  023 因为要对beanFactory进行设置
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
-				// TODO: 2020/5/5 lizj2 030 目前没有任何实现  在这一过程bean都已加载但没有被实例化
+				//  030 目前没有任何实现  在这一过程bean都已加载但没有被实例化
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// TODO: 2020/5/5 lizj2 031 通过显示顺序方式调用手动注册的BeanFactory后置处理器 先实例化spring框架涉及到的后处理器，再调动
+				//  031  调用 BeanFactoryPostProcessor 各个实现类的 postProcessBeanFactory(factory) 方法
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
-				// TODO: 2020/7/15 注册拦截bean创建的bean处理器-实例化
+				//  注册拦截bean创建的bean处理器-实例化
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				// 初始化当前 ApplicationContext 的 MessageSource，国际化
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				//初始化当前 ApplicationContext 的事件广播器
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
+				// 留给子类的扩展  springboot扩展类
 				onRefresh();
 
 				// Check for listener beans and register them.
+				// 注册事件监听器
 				registerListeners();
 
-				// spring所有非懒加载的单例 javabean都是在这里初始化
+				// spring所有非懒加载的单例 javabean都是在这里初始化 55%
 				// Instantiate all remaining (non-lazy-init) singletons.
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
+				// 广播事件，ApplicationContext 初始化完成
 				finishRefresh();
 			}
 
@@ -652,17 +658,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		// Tell the internal bean factory to use the context's class loader etc.
-		// TODO: 2020/5/5 lizj2 024 添加类加载器
+		//  024 添加类加载器
 		beanFactory.setBeanClassLoader(getClassLoader());
-		// TODO: 2020/5/5 lizj2 025 添加bean表达式解析器
+		//  025 添加bean表达式解析器
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
-		// TODO: 2020/5/5 lizj2 026 对属性进行编辑
+		//  026 对属性进行编辑
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
-		// TODO: 2020/5/5 lizj2 027 配置后置处理器(里面的list 就是后面要不for循环遍历的)
+		//  027 配置后置处理器(里面的list 就是后面要不for循环遍历的)
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
-		// TODO: 2020/5/5 lizj2 029 忽略一些东西
+		//  029 忽略一些东西
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -678,7 +684,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.registerResolvableDependency(ApplicationContext.class, this);
 
 		// Register early post-processor for detecting inner beans as ApplicationListeners.
-		// TODO: 2020/5/5 lizj2 030 将后置处理器添加到beanFactory中
+		//  030 将后置处理器添加到beanFactory中
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found.
@@ -715,7 +721,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * respecting explicit order if given.
 	 * <p>Must be called before singleton instantiation.
 	 */
-	// TODO: 2020/5/5 lizj2 032 getBeanFactoryPostProcessors() 获取的是自定义的
+	//  032 getBeanFactoryPostProcessors() 获取的是自定义的
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 

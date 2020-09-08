@@ -8,12 +8,18 @@ import java.util.List;
  * </pre>
  */
 //模拟第一个类
-public class User {
+public class User //implements Sport
+{
 	private String age;
 
 	private String name;
 
-	private List<Sport> sportList;
+	private Person person;
+
+//	@Override
+//	public void run() {
+//
+//	}
 
 	public String getAge() {
 		return age;
@@ -34,8 +40,11 @@ public class User {
 		this.name = name;
 	}
 
-	public List<Sport> getSportList() {
-		return sportList;
+	public Person getPerson() {
+		return person;
 	}
 
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 }
